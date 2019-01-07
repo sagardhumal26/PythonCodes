@@ -1,0 +1,64 @@
+class Node:
+    def __init__(self,data,next=None):
+        self.data = data
+        self.next = next
+    
+class LinkedList:
+    def __init__(self,head = None):
+        self.head = head
+        self.size = 0
+
+    def getSize(self):
+        return self.size
+
+    def appendNode(self,data):
+        self.size+=1
+        if not self.head:
+            self.head = Node(data)
+            return
+        cur = self.head
+        while cur.next:
+            cur=cur.next
+        cur.next=Node(data)
+    
+    def printList(self):
+        cur=self.head
+        while cur:
+            print(cur.data,end='->')
+            cur=cur.next
+        print()
+    
+    def reverseList(self):
+        prev = None
+        next = None
+        cur = self.head
+        while cur:
+            next = cur.next
+            cur.next = prev
+            prev = cur
+            cur = next
+        return prev
+    
+    def find(self,data):
+        cur = self.head
+        while cur:
+            if cur.data == data:
+                return "{} found in list".format(data)
+            cur = cur.next
+        return "{} NOT found in list".format(data)
+    
+if __name__=='__main__':       
+    myList = LinkedList()
+    print("Inserting")
+    myList.appendNode(5)
+    myList.appendNode(15)
+    myList.appendNode(25)
+    myList.appendNode(35)
+    myList.appendNode(45)
+    print("Printing")
+    myList.printList()
+    print("Size of list :- {}".format(myList.getSize()))
+    myList.head = myList.reverseList()
+    myList.printList()
+    print(myList.find(25))
+    print(myList.find(50))
